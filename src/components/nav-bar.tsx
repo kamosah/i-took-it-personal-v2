@@ -45,25 +45,25 @@ const NavLink = ({
   const hoverColor = useColorModeValue("blue.700", "blue.200");
 
   return (
-    <NextLink href={href} passHref legacyBehavior>
-      <ChakraLink
-        px={3}
-        py={2}
-        rounded="md"
-        fontWeight={isActive ? "bold" : "medium"}
-        color={isActive ? activeColor : inactiveColor}
-        bg={isActive ? activeBg : "transparent"}
-        _hover={{
-          textDecoration: "none",
-          bg: hoverBg,
-          color: hoverColor,
-        }}
-        aria-current={isActive ? "page" : undefined}
-        onClick={onClick}
-      >
-        {children}
-      </ChakraLink>
-    </NextLink>
+    <ChakraLink
+      as={NextLink}
+      href={href}
+      px={3}
+      py={2}
+      rounded="md"
+      fontWeight={isActive ? "bold" : "medium"}
+      color={isActive ? activeColor : inactiveColor}
+      bg={isActive ? activeBg : "transparent"}
+      _hover={{
+        textDecoration: "none",
+        bg: hoverBg,
+        color: hoverColor,
+      }}
+      aria-current={isActive ? "page" : undefined}
+      onClick={onClick}
+    >
+      {children}
+    </ChakraLink>
   );
 };
 
@@ -93,24 +93,24 @@ const NavBar: React.FC = () => {
     >
       <Flex h={16} alignItems="center" justifyContent="space-between">
         {/* Logo / Brand */}
-        <NextLink href="/" passHref legacyBehavior>
-          <ChakraLink
-            display="flex"
-            alignItems="center"
-            fontWeight="bold"
-            fontSize="xl"
-            color={brandColor}
-            _hover={{
-              textDecoration: "none",
-              color: brandHoverColor,
-            }}
-            aria-label="Go to home page"
-          >
-            <Text fontFamily="heading" letterSpacing="tight">
-              Kwame&apos;s Blog
-            </Text>
-          </ChakraLink>
-        </NextLink>
+        <ChakraLink
+          href="/"
+          as={NextLink}
+          display="flex"
+          alignItems="center"
+          fontWeight="bold"
+          fontSize="xl"
+          color={brandColor}
+          _hover={{
+            textDecoration: "none",
+            color: brandHoverColor,
+          }}
+          aria-label="Go to home page"
+        >
+          <Text fontFamily="heading" letterSpacing="tight">
+            Kwame&apos;s Blog
+          </Text>
+        </ChakraLink>
 
         {/* Desktop Nav */}
         <HStack as="nav" gap={2} display={{ base: "none", md: "flex" }}>

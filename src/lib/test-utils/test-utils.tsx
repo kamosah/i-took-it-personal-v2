@@ -1,5 +1,6 @@
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
-import { Providers } from "../components/ui/Providers";
+import { Providers } from "../../components/providers";
+
 
 export * from "@testing-library/react";
 

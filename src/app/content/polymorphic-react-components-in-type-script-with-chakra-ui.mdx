@@ -1,0 +1,84 @@
+---
+author:
+  name: 'Kwame Amosah'
+  avatar: /images/avatar/profile-pic.jpeg
+  twitterLink: 'https://x.com/kwame_amosah'
+  linkedInLink: "https://linkedin.com/in/kamosah"
+excerpt: 'Learn how to create polymorphic React components in TypeScript using Chakra UI. Discover best practices for building reusable, flexible components that adapt to different HTML element types.'
+title: 'Polymorphic React Components in TypeScript with Chakra UI'
+date: '2025-05-18'
+slug: 'polymorphic-react-components-in-type-script-with-chakra-ui'
+tags: ['next.js', 'react', 'typescript', 'chakra']
+featuredImage:
+  url: /images/polymorphic.jpg
+  alt: 'polymorphic'
+---
+
+# Polymorphic React Components in TypeScript with Chakra UI
+
+Polymorphic components allow us to build flexible and reusable components that can adapt to different HTML elements while maintaining TypeScript safety. In this guide, we’ll explore how to implement polymorphic components in a React application with Chakra UI.
+
+## What is a Polymorphic Component?
+
+A polymorphic component is one that can render different types of elements based on the `as` prop. This makes it possible to reuse a single component for various HTML elements while preserving type safety in TypeScript.
+
+## Why Use Polymorphic Components?
+
+Polymorphic components improve code reusability, reduce redundancy, and provide flexibility when building UI components. Chakra UI already provides an excellent base for building such components with its styling system.
+
+## Creating a Polymorphic Component
+
+Let’s start by building a simple polymorphic component that can render different elements based on the `as` prop.
+
+```tsx
+import React from 'react';
+import { Box, BoxProps } from '@chakra-ui/react';
+
+interface PolymorphicComponentProps extends BoxProps {
+  as?: React.ElementType;
+  children: React.ReactNode;
+}
+
+const PolymorphicComponent = ({
+  as: Component = 'div',
+  children,
+  ...props
+}: PolymorphicComponentProps) => {
+  return <Component {...props}> {children} </Component>;
+};
+export default PolymorphicComponent;
+```
+
+### Breakdown:- **`as` Prop:**
+
+This is the key to polymorphism. The `as` prop is optional and defaults to `div`. It allows the component to render different types of HTML elements or custom components.- **`BoxProps`:** We extend Chakra UI’s `BoxProps` to include the full range of styling properties that Chakra UI provides.- **`React.ElementType`:** This type allows the `as` prop to accept any valid HTML element or React component.
+
+## Example Usage
+
+You can now use the `PolymorphicComponent` with different elements:
+
+```tsx
+import { ChakraProvider } from '@chakra-ui/react';
+import PolymorphicComponent from './PolymorphicComponent';
+const App = () => (
+  <ChakraProvider>
+    <PolymorphicComponent as="section" p={4}>
+      This is a section element.
+    </PolymorphicComponent> <PolymorphicComponent as="header" p={4}>
+      This is a header element.
+    </PolymorphicComponent> <PolymorphicComponent as="article" p={4}>
+      This is an article element.
+    </PolymorphicComponent>
+  </ChakraProvider>
+);
+export default App;
+```
+
+### Advantages of This Approach:- **Flexibility:**
+
+You can render any element, keeping the component reusable.- **Type Safety:** TypeScript ensures that only valid HTML elements or components are passed to the `as` prop.
+
+## Conclusion
+
+Polymorphic components in React, when combined with TypeScript and Chakra UI, provide a powerful way to build flexible and reusable UI elements. This technique enhances your ability to create dynamic components while maintaining type safety and clean code.
+By leveraging the `as` prop, you can build highly customizable components that are easy to maintain and scale across your application.

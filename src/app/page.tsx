@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-export default function Home() {
+export default function Index() {
   return (
     <Box as="main" maxW="1200px" mx="auto" px={4} py={8}>
       <Box textAlign="center" py={10}>

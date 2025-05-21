@@ -2,7 +2,6 @@
 import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NextLink from "next/link";
-import { usePathname } from "next/navigation";
 
 import {
   Box,
@@ -16,7 +15,7 @@ import {
   Drawer,
   CloseButton,
 } from "@chakra-ui/react";
-import { useColorModeValue } from "./ui/color-mode";
+import { ColorModeButton } from "./ui/color-mode";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -29,38 +28,40 @@ const navLinks = [
 const NavLink = ({
   href,
   children,
-  isActive,
   onClick,
 }: {
   href: string;
   children: React.ReactNode;
-  isActive: boolean;
   onClick?: () => void;
 }) => {
-  // Declare color mode values
-  const activeColor = useColorModeValue("blue.600", "blue.300");
-  const inactiveColor = useColorModeValue("gray.700", "gray.200");
-  const activeBg = useColorModeValue("blue.50", "blue.900");
-  const hoverBg = useColorModeValue("blue.100", "gray.700");
-  const hoverColor = useColorModeValue("blue.700", "blue.200");
-
   return (
     <ChakraLink
-      as={NextLink}
-      href={href}
       px={3}
       py={2}
       rounded="md"
-      fontWeight={isActive ? "bold" : "medium"}
-      color={isActive ? activeColor : inactiveColor}
-      bg={isActive ? activeBg : "transparent"}
+      fontWeight="medium"
+      color={{
+        base: "gray.700",
+        _dark: "gray.200",
+      }}
+      bg={{
+        base: "transparent",
+        _dark: "transparent",
+      }}
       _hover={{
         textDecoration: "none",
-        bg: hoverBg,
-        color: hoverColor,
+        bg: {
+          base: "blue.100",
+          _dark: "gray.700",
+        },
+        color: {
+          base: "blue.700",
+          _dark: "blue.200",
+        },
       }}
-      aria-current={isActive ? "page" : undefined}
       onClick={onClick}
+      as={NextLink}
+      href={href}
     >
       {children}
     </ChakraLink>
@@ -68,44 +69,39 @@ const NavLink = ({
 };
 
 const NavBar: React.FC = () => {
-  const { open, onOpen, onClose } = useDisclosure();
-  const pathname = usePathname();
-
-  // Use color mode values once at the top
-  const bg = useColorModeValue("white", "gray.900");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
-  const boxShadow = useColorModeValue("sm", "sm-dark");
-  const brandColor = useColorModeValue("blue.600", "blue.300");
-  const brandHoverColor = useColorModeValue("blue.800", "blue.100");
+  const { open, onOpen, onClose } = useDisclosure(); // Changed open to isOpen for clarity with Drawer.Root
+  console.log("Navbar");
   return (
     <Box
       as="nav"
       w="100%"
-      bg={bg}
+      bg={{ base: "white", _dark: "gray.900" }}
       borderBottom="1px"
-      borderColor={borderColor}
+      borderColor={{ base: "gray.200", _dark: "gray.700" }}
       px={{ base: 4, md: 8 }}
       py={2}
       position="sticky"
       top={0}
       zIndex={100}
-      boxShadow={boxShadow}
+      boxShadow={{ base: "sm", _dark: "sm-dark" }}
     >
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        {/* Logo / Brand */}
         <ChakraLink
-          href="/"
-          as={NextLink}
           display="flex"
           alignItems="center"
           fontWeight="bold"
           fontSize="xl"
-          color={brandColor}
+          color={{ base: "blue.600", _dark: "blue.300" }}
           _hover={{
             textDecoration: "none",
-            color: brandHoverColor,
+            color: {
+              base: "blue.800",
+              _dark: "blue.100",
+            },
           }}
           aria-label="Go to home page"
+          as={NextLink}
+          href="/"
         >
           <Text fontFamily="heading" letterSpacing="tight">
             Kwame&apos;s Blog
@@ -113,16 +109,18 @@ const NavBar: React.FC = () => {
         </ChakraLink>
 
         {/* Desktop Nav */}
-        <HStack as="nav" gap={2} display={{ base: "none", md: "flex" }}>
+        <HStack
+          as="nav"
+          gap={2}
+          display={{ base: "none", md: "flex" }}
+          alignItems="center"
+        >
           {navLinks.map((link) => (
-            <NavLink
-              key={link.name}
-              href={link.path}
-              isActive={pathname === link.path}
-            >
+            <NavLink key={link.name} href={link.path}>
               {link.name}
             </NavLink>
           ))}
+          <ColorModeButton /> {/* Add ColorModeButton here */}
         </HStack>
 
         {/* Mobile Hamburger */}
@@ -144,24 +142,22 @@ const NavBar: React.FC = () => {
             <Drawer.Body>
               <Stack as="nav" gap={4} mt={8}>
                 {navLinks.map((link) => (
-                  <NavLink
-                    key={link.name}
-                    href={link.path}
-                    isActive={pathname === link.path}
-                    onClick={onClose}
-                  >
+                  <NavLink key={link.name} href={link.path} onClick={onClose}>
                     {link.name}
                   </NavLink>
                 ))}
               </Stack>
+              <ColorModeButton alignSelf="flex-start" mt={4} />
             </Drawer.Body>
-          </Drawer.Content>
-          {/* TODO: Fix close button. Should only display on mobile */}
-          <Flex justify="flex-end">
-            <Drawer.CloseTrigger asChild>
-              <CloseButton onClick={onClose} size="sm" />
+            <Drawer.CloseTrigger
+              asChild
+              position="absolute"
+              top="8px"
+              right="8px"
+            >
+              <CloseButton size="sm" />
             </Drawer.CloseTrigger>
-          </Flex>
+          </Drawer.Content>
         </Drawer.Root>
       </Box>
     </Box>

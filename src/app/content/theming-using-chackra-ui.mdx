@@ -1,0 +1,135 @@
+---
+author:
+  name: 'Kwame Amosah'
+  avatar: /images/avatar/profile-pic.jpeg
+  twitterLink: 'https://x.com/kwame_amosah'
+  linkedInLink: "https://linkedin.com/in/kamosah"
+excerpt: 'Learn how to customize and extend your design system using Chakra UI’s theming capabilities—perfect for building consistent, scalable UIs with ease across your React applications.'
+title: 'Theming Using Chackra UI'
+date: '2025-05-18'
+slug: 'theming-using-chackra-ui'
+tags: ['next.js', 'react', 'typescript', 'mdx', 'testing', 'chakra']
+featuredImage:
+  url: /images/designers-desktop.jpg
+  alt: 'designers desktop'
+---
+
+# Theming with Chakra UI in a Next.js SSR App
+
+## Chakra UI makes it simple to build consistent UIs in React with built-in theming and accessibility. In this post, you'll learn how to set up custom theming in a Next.js project with SSR.
+
+## 🔧 Setup
+
+Start with a basic Next.js app and install Chakra UI:
+
+```bash
+npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion
+```
+
+Wrap your app with Chakra’s `ChakraProvider`.
+
+### `pages/_app.tsx`
+
+```tsx
+import { ChakraProvider } from '@chakra-ui/react';
+import type { AppProps } from 'next/app';
+import theme from '../theme';
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <ChakraProvider theme={theme}>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  );
+}
+export default MyApp;
+```
+
+---
+
+## 🎨 Creating a Custom Theme
+
+Override default tokens by extending the base theme.
+
+### `theme/index.ts`
+
+```tsx
+import { extendTheme } from '@chakra-ui/react';
+const theme = extendTheme({
+  colors: { brand: { 50: '#e3f9f5', 500: '#0bc5ea', 700: '#00a3c4' } },
+  fonts: { heading: 'Inter, sans-serif', body: 'Inter, sans-serif' },
+  components: {
+    Button: {
+      variants: { solid: { bg: 'brand.500', _hover: { bg: 'brand.700' } } },
+    },
+  },
+});
+export default theme;
+```
+
+---
+
+## ⚡ Using the Theme in Components
+
+Use Chakra components and your custom tokens directly.
+
+### `pages/index.tsx`
+
+```tsx
+import { Box, Button, Heading, Text } from '@chakra-ui/react';
+export default function Home() {
+  return (
+    <Box p={8}>
+      {' '}
+      <Heading color="brand.500">Welcome to Chakra Theming</Heading> <Text
+        mt={4}
+      >
+        This is a custom-themed UI built with Chakra and Next.js.
+      </Text> <Button mt={6} variant="solid">
+        Get Started
+      </Button>{' '}
+    </Box>
+  );
+}
+```
+
+---
+
+## 🧠 SSR with Chakra UI
+
+For full SSR support, Chakra UI provides a custom `Document` setup to extract and inject styles on the server.
+
+### `pages/_document.tsx`
+
+```tsx
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { ColorModeScript } from '@chakra-ui/react';
+import theme from '../theme';
+export default class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        {' '}
+        <Head /> <body>
+          {' '}
+          <ColorModeScript
+            initialColorMode={theme.config?.initialColorMode}
+          /> <Main /> <NextScript />{' '}
+        </body>{' '}
+      </Html>
+    );
+  }
+}
+```
+
+---
+
+## ✅ Final Thoughts
+
+With Chakra UI and Next.js, you can build accessible, customizable, and server-rendered UIs without the hassle. Start theming your app with ease and consistency!
+
+---
+
+## 📚 Resources
+
+- [Chakra UI Theming Docs](https://chakra-ui.com/docs/styled-system/customize-theme)- [Next.js SSR Guide](https://nextjs.org/docs/basic-features/pages#server-side-rendering)

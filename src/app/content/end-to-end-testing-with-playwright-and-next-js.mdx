@@ -1,0 +1,278 @@
+---
+author:
+  name: 'Kwame Amosah'
+  avatar: /images/avatar/profile-pic.jpeg
+  twitterLink: 'https://x.com/kwame_amosah'
+  linkedInLink: "https://linkedin.com/in/kamosah"
+title: 'End to End Testing with Playwright and Next.js'
+date: '2025-05-18'
+excerpt: 'Discover how to implement robust end-to-end testing for Next.js applications using Playwright. Learn setup strategies, best practices, and automated workflows that catch bugs before they reach production.'
+slug: 'end-to-end-testing-with-playwright-and-next-js'
+tags: ['next.js', 'react', 'typescript', 'mdx', 'testing']
+featuredImage:
+  url: /images/playwright.png
+  alt: 'playwright'
+---
+
+## Introduction
+
+End-to-end testing is a critical part of modern web development that ensures your application works correctly from a user's perspective. In this guide, we'll explore how to implement end-to-end testing for Next.js applications using Playwright - a powerful, fast, and reliable testing framework.
+**Time to read: 5 minutes**
+
+## Why Playwright + Next.js?
+
+- **Speed**: Playwright runs tests in parallel across multiple browsers
+- **Reliability**: Automatic waiting for elements to be ready
+- **Modern**: Works perfectly with modern JS frameworks like Next.js
+- **Cross-browser**: Test on Chromium, Firefox, and WebKit
+
+## Setting Up Your Project
+
+### 1. Installing Dependencies
+
+Let's start with a fresh Next.js project and add Playwright:
+
+```bash
+# Create a new Next.js project if you don't have one
+npx create-next-app@latest my-nextjs-app
+cd my-nextjs-app
+
+# Install Playwright
+npm init playwright@latest
+```
+
+This will create a basic configuration including:
+
+- A `playwright.config.ts` file
+- A `tests` directory for your test files
+- Example tests to get you started
+
+### 2. Configuring Playwright for Next.js
+
+Modify your `playwright.config.ts` file:
+
+```typescript
+import { defineConfig, devices } from '@playwright/test';
+export default defineConfig({
+  testDir: './tests',
+  // Maximum time one test can run
+  timeout: 30 * 1000,
+  // Run tests in files in parallel
+  fullyParallel: true,
+  // Generate a report after tests finish
+  reporter: 'html',
+  // Shared settings for all projects
+  use: {
+    // Base URL to use in navigations
+    baseURL: 'http://localhost:3000',
+    // Capture screenshot on failure
+    screenshot: 'only-on-failure',
+    // Record trace for each test
+    trace: 'on-first-retry',
+  },
+  // Configure projects for different browsers
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+  ],
+  // Run local dev server before starting the tests
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
+});
+```
+
+## Writing Your First Test
+
+Let's create a simple test that:
+
+1. Navigates to your app's homepage
+2. Verifies the page title
+3. Tests a basic user interaction
+   Create a file `tests/homepage.spec.ts`:
+
+```typescript
+import { test, expect } from '@playwright/test';
+test('homepage has correct title and navigation works', async ({ page }) => {
+  // Navigate to the homepage
+  await page.goto('/');
+  // Expect a title to contain specific text
+  await expect(page).toHaveTitle(/Next.js/);
+  // Find and click a link to the about page
+  await page.getByRole('link', { name: 'About' }).click();
+  // The new URL should include "/about"
+  await expect(page).toHaveURL(/.*about/);
+});
+```
+
+## Testing Form Submissions
+
+Let's create a more advanced test for a form submission:
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('contact form submits successfully', async ({ page }) => {
+  // Navigate to contact page
+  await page.goto('/contact');
+  // Fill out the form
+  await page.getByLabel('Name').fill('Test User');
+  await page.getByLabel('Email').fill('test@example.com');
+  await page
+    .getByLabel('Message')
+    .fill('This is a test message from Playwright');
+  // Submit the form
+  await page.getByRole('button', { name: 'Submit' }).click();
+  // Check for success message
+  await expect(page.getByText('Thank you for your message!')).toBeVisible();
+});
+```
+
+## Testing API Routes in Next.js
+
+Next.js applications often include API routes. Let's test one:
+
+```typescript
+import { test, expect } from '@playwright/test';
+test('API returns expected data', async ({ request }) => {
+  // Make a request to your API route
+  const response = await request.get('/api/users');
+  // Check status and response body
+  expect(response.status()).toBe(200);
+  const data = await response.json();
+  expect(data.users.length).toBeGreaterThan(0);
+  expect(data.users[0]).toHaveProperty('name');
+  expect(data.users[0]).toHaveProperty('email');
+});
+```
+
+## Testing Authentication Flows
+
+Many applications require authentication. Here's how to test a login flow:
+
+```typescript
+import { test, expect } from '@playwright/test';
+test('user can login successfully', async ({ page }) => {
+  // Navigate to login page
+  await page.goto('/login');
+  // Fill credentials and submit
+  await page.getByLabel('Email').fill('user@example.com');
+  await page.getByLabel('Password').fill('password123');
+  await page.getByRole('button', { name: 'Log in' }).click();
+  // Verify successful login
+  await expect(page.getByText('Welcome back')).toBeVisible();
+  // Verify redirect to dashboard
+  await expect(page).toHaveURL(/.*dashboard/);
+});
+```
+
+## CI/CD Integration
+
+To integrate your Playwright tests with GitHub Actions, create a file `.github/workflows/playwright.yml`:
+
+```yaml
+name: Playwright Tests
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+```
+
+## Best Practices
+
+1. **Page Object Model**: Keep your tests maintainable by using the Page Object pattern
+
+```typescript
+// pages/login-page.ts
+import { Page, Locator } from '@playwright/test';
+export class LoginPage {
+  readonly page: Page;
+  readonly emailInput: Locator;
+  readonly passwordInput: Locator;
+  readonly submitButton: Locator;
+  constructor(page: Page) {
+    this.page = page;
+    this.emailInput = page.getByLabel('Email');
+    this.passwordInput = page.getByLabel('Password');
+    this.submitButton = page.getByRole('button', { name: 'Log in' });
+  }
+  async goto() {
+    await this.page.goto('/login');
+  }
+  async login(email: string, password: string) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.submitButton.click();
+  }
+}
+```
+
+2. **Use Test Fixtures**: Share common setup between tests
+
+```typescript
+// fixtures/authenticated-page.ts
+import { test as base } from '@playwright/test';
+import { LoginPage } from '../pages/login-page';
+export const test = base.extend({
+  authenticatedPage: async ({ page }, use) => {
+    // Login before running the test
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('user@example.com', 'password123');
+    // Wait for login to complete
+    await page.waitForURL(/.*dashboard/);
+    // Use the authenticated page
+    await use(page);
+  },
+});
+```
+
+## Conclusion
+
+End-to-end testing with Playwright and Next.js provides a powerful way to ensure your applications work correctly from a user's perspective. By following this guide, you've learned how to:
+
+- Set up Playwright with Next.js
+- Write basic page navigation tests
+- Test forms and API routes
+- Handle authentication in tests
+- Integrate with CI/CD
+- Apply best practices for test organization
+  Start implementing these techniques in your Next.js projects to catch bugs before they reach production and build more reliable applications.
+
+---
+
+_What end-to-end testing strategies are you using with your Next.js applications? Let us know in the comments below!_

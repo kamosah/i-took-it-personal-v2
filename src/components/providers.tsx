@@ -1,12 +1,15 @@
 "use client";
 
+import { CacheProvider } from "@emotion/react";
 import {
   ChakraProvider,
+  ChakraProviderProps,
   createSystem,
   defaultConfig,
   defineConfig,
 } from "@chakra-ui/react";
-import { ColorModeProvider, ColorModeProviderProps } from "./ui/color-mode";
+import { createEmotionCache } from "../lib/styles/emotion-cache";
+import { ColorModeProvider } from "./ui/color-mode";
 
 const config = defineConfig({
   globalCss: {
@@ -38,11 +41,17 @@ const config = defineConfig({
 });
 
 const system = createSystem(defaultConfig, config);
+const cache = createEmotionCache();
 
-export const Providers = (props: ColorModeProviderProps) => {
+export const Providers: React.FC<Omit<ChakraProviderProps, "value">> = ({
+  children,
+  ...props
+}) => {
   return (
-    <ChakraProvider value={system}>
-      <ColorModeProvider {...props} />
-    </ChakraProvider>
+    <CacheProvider value={cache}>
+      <ChakraProvider {...props} value={system}>
+        <ColorModeProvider defaultTheme="light">{children}</ColorModeProvider>
+      </ChakraProvider>
+    </CacheProvider>
   );
 };

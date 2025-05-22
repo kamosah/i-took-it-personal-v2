@@ -22,7 +22,13 @@ const BlogPostLayout = async ({
 
   const readingTime = calculateReadingTime(post.content);
   return (
-    <Container maxW="container.md" py={8}>
+    <Container
+      maxW="container.md"
+      py={8}
+      border="1px"
+      borderColor="gray.200"
+      borderRadius="md"
+    >
       <Text fontSize="sm" color="gray.500" mb={2}>
         {formatDate(post.date)} • {readingTime} min read
       </Text>

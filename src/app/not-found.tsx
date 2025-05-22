@@ -19,7 +19,7 @@ export default function GlobalNotFound() {
       <Text fontSize="lg" mb={6}>
         Sorry, we couldn&apos;t find that page.
       </Text>
-      <NextLink href="/" passHref>
+      <NextLink href="/" passHref prefetch>
         <Button as="a" colorScheme="teal" size="lg">
           Back to Home
         </Button>

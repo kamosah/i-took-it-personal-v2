@@ -22,7 +22,12 @@ export default async function BlogIndex() {
 
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} rowGap={8} columnGap={8}>
         {posts.map((post) => (
-          <NextLink href={`/blog/${post.slug}`} key={post.slug} passHref>
+          <NextLink
+            href={`/blog/${post.slug}`}
+            key={post.slug}
+            passHref
+            prefetch
+          >
             <Box
               borderWidth="1px"
               borderRadius="lg"

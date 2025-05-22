@@ -1,3 +1,5 @@
+import { type TableOfContentsItem } from "./extract-headings";
+
 /**
  * Types for MDX blog posts
  */
@@ -31,6 +33,7 @@ export interface PostFrontmatter extends Record<string, unknown> {
 export interface Post extends PostFrontmatter {
   content: string; // Raw MDX content
   url: string; // Computed URL
+  headings?: TableOfContentsItem[]; // Extracted headings for TOC
 }
 
 /**

@@ -42,7 +42,7 @@ export function FeaturedImage({
     <ClientOnly fallback={<Skeleton />}>
       <Box
         borderColor={styles.borderColor || ssrStyles.borderColor}
-        borderRadius="md"
+        borderRadius="3xl"
         borderWidth="1px"
         boxShadow={styles.boxShadow || ssrStyles.boxShadow}
         height={height}

@@ -65,7 +65,7 @@ export default async function BlogPostPage({
           <Box divideX="2px" mb={8} />
         </header>
 
-        <Box className="mdx-content">
+        <Box className="mdx-content" mt={6}>
           {/* Client component to render MDX */}
           <MDXContent source={mdxSource} />
         </Box>

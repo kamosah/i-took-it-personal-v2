@@ -69,8 +69,7 @@ const NavLink = ({
 };
 
 const NavBar: React.FC = () => {
-  const { open, onOpen, onClose } = useDisclosure(); // Changed open to isOpen for clarity with Drawer.Root
-  console.log("Navbar");
+  const { open, onOpen, onClose } = useDisclosure();
   return (
     <Box
       as="nav"
@@ -154,6 +153,7 @@ const NavBar: React.FC = () => {
               position="absolute"
               top="8px"
               right="8px"
+              onClick={onClose}
             >
               <CloseButton size="sm" />
             </Drawer.CloseTrigger>

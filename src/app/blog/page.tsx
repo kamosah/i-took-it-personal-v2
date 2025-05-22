@@ -11,7 +11,6 @@ export const metadata = {
 
 export default async function BlogIndex() {
   const posts = await getAllPosts();
-  console.log("posts", posts);
 
   return (
     <Box maxW="1200px" mx="auto" px={4} py={8}>

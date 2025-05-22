@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { Post, PostFrontmatter, computePostUrl } from "./types";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import { extractHeadings } from "./extract-headings";
 
 // Path to the content directory
 const CONTENT_PATH = path.join(process.cwd(), "src/app/content");
@@ -29,11 +30,15 @@ export function parsePostFile(filePath: string): Post {
     // Type assertion for frontmatter
     const frontmatter = data as PostFrontmatter;
 
-    // Return post with computed URL
+    // Extract headings for table of contents
+    const headings = extractHeadings(content);
+
+    // Return post with computed URL and headings
     return {
       ...frontmatter,
       content,
       url: computePostUrl(frontmatter.slug),
+      headings,
     };
   } catch (error) {
     // Re-throw with more context

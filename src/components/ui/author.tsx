@@ -30,7 +30,7 @@ export function Author(props: AuthorProps) {
   };
   const handle = getHandle(linkedInLink);
   return (
-    <HStack pt={4} gap="4">
+    <HStack gap="4">
       <Avatar.Root size={{ base: "sm", md: "md" }}>
         <Avatar.Fallback name={name} />
         <Avatar.Image {...imageProps} src={avatar} />

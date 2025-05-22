@@ -10,7 +10,12 @@ export const RelatedBlogPosts = ({ posts }: { posts: Post[] }) => {
       </Heading>
       <Flex direction="column" mb={4}>
         {posts.map((post) => (
-          <Box key={post.slug} py={2}>
+          <Box
+            key={post.slug}
+            py={2}
+            borderColor="gray.200"
+            borderBottom="1px solid"
+          >
             <NextLink href={`/blog/${post.slug}`} passHref>
               <Text fontSize="lg" textWrap="wrap">
                 {post.title}

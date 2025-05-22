@@ -55,8 +55,8 @@ const BlogPostLayout = async ({
           {formatDate(post.date)} • {readingTime} min read
         </Text>
       </Container>
-      <Flex position="relative">
-        <Container maxW={{ base: "100%", md: "8/12" }} pr={8}>
+      <Flex position="relative" gap={6} align="flex-start">
+        <Container maxW={{ base: "100%", md: "67%" }} pr={{ md: 4, lg: 8 }}>
           <Heading as="h1" mb={8} fontSize="3xl">
             {post.title}
           </Heading>
@@ -75,11 +75,15 @@ const BlogPostLayout = async ({
           </Box>
           <article>{children}</article>
         </Container>
-        {/* TODO: Make Sidebar Container sticky */}
-        <Box
-          maxW="4/12"
+
+        <Container
+          alignSelf="flex-start"
           display={{ base: "none", md: "block" }}
           flexDirection="column"
+          height="fit-content"
+          position="sticky"
+          top="100px"
+          w={{ md: "33%", lg: "33%" }}
         >
           {post.headings && post.headings.length > 0 && (
             <PostTableOfContents headings={post.headings} />
@@ -87,9 +91,8 @@ const BlogPostLayout = async ({
           {relatedPostsList.length > 0 && (
             <RelatedBlogPosts posts={relatedPostsList} />
           )}
-        </Box>
+        </Container>
       </Flex>
-      {/* TODO: Add sidebar table of contents and related articles */}
     </Container>
   );
 };

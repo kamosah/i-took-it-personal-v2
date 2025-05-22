@@ -79,8 +79,6 @@ export default function PostTableOfContents({
     <Box
       className={className}
       ref={tocRef}
-      position={{ base: "relative", md: "sticky" }}
-      top="80px"
       maxHeight={{ base: "auto", md: "calc(100vh - 40px)" }}
       overflowY="auto"
       backgroundColor={bgColor}

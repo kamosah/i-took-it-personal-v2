@@ -1,8 +1,7 @@
-import NextLink from "next/link";
-import { Box, Heading, Text, Flex, SimpleGrid, Tag } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { getAllPosts } from "../../lib/mdx/utils";
-import Image from "next/image";
-import { formatDate } from "../../lib/utils/date";
+import BlogPost from "../../components/ui/blog-post";
+import FeaturedBlogPost from "../../components/ui/featured-blog-post";
 
 export const metadata = {
   title: "Blog | Personal Blog",
@@ -18,70 +17,13 @@ export default async function BlogIndex() {
       {/* <Heading as="h1" mb={8} fontSize="3xl">
         {tag ? `${tag.charAt(0).toUpperCase() + tag.slice(1)} Posts` : 'Blog'}
       </Heading> */}
+      <Box mb={8}>
+        <FeaturedBlogPost {...posts[0]} />
+      </Box>
 
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} rowGap={8} columnGap={8}>
-        {posts.map((post) => (
-          <NextLink
-            href={`/blog/${post.slug}`}
-            key={post.slug}
-            passHref
-            prefetch
-          >
-            <Box
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              transition="transform 0.2s"
-              _hover={{ transform: "translateY(-4px)" }}
-            >
-              <Box position="relative" height="200px">
-                <Image
-                  src={post.featuredImage.url}
-                  alt={post.featuredImage.alt}
-                  fill
-                  sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%, 100%"
-                  priority
-                  quality={90}
-                  style={{ objectFit: "cover" }}
-                />
-              </Box>
-              <Box p={5}>
-                <Heading
-                  size="md"
-                  mb={2}
-                  style={{
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {post.title}
-                </Heading>
-                <Text color="gray.600" fontSize="sm" mb={3}>
-                  {formatDate(post.date)} • {post.author.name}
-                </Text>
-                <Text
-                  mt={2}
-                  mb={4}
-                  style={{
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}
-                >
-                  {post.excerpt}
-                </Text>
-                <Flex gap={2}>
-                  {post.tags.map((tag) => (
-                    <Tag.Root key={tag} size="sm" colorScheme="purple">
-                      <Tag.Label>{tag}</Tag.Label>
-                    </Tag.Root>
-                  ))}
-                </Flex>
-              </Box>
-            </Box>
-          </NextLink>
+        {posts.slice(1).map((post) => (
+          <BlogPost key={post.slug} post={post} />
         ))}
       </SimpleGrid>
 

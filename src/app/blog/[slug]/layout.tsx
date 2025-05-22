@@ -46,9 +46,6 @@ const BlogPostLayout = async ({
     <Container
       maxW={{ sm: "100%", base: "100%", md: "container.md" }}
       py={{ base: 4, md: 8 }}
-      border="1px"
-      borderColor="gray.200"
-      borderRadius="md"
     >
       <Container maxW={{ sm: "100%", base: "100%", md: "container.md" }} mb="8">
         <Text fontSize="sm" color="gray.500" mb={2}>

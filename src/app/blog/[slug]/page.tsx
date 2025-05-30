@@ -54,14 +54,6 @@ export default async function BlogPostPage({
     <Container maxW="container.md" py={8} px={0}>
       <article>
         <header>
-          {/* <Heading as="h1" size="xl" mb={4}>
-            {post.title}
-          </Heading>
-
-          <Text color="gray.600" mb={4}>
-            {formatDate(post.date)}
-          </Text> */}
-
           <Box divideX="2px" mb={8} />
         </header>
 

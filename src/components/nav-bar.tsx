@@ -19,7 +19,7 @@ import { ColorModeButton } from "./ui/color-mode";
 
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
+  { name: "Experience", path: "/experience" },
   { name: "Blog Posts", path: "/blog" },
   { name: "Resume", path: "/resume" },
   { name: "Contact", path: "/contact" },

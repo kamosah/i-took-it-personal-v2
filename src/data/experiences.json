@@ -33,8 +33,8 @@
     "title": "Software Engineer",
     "company": "Dovenmuehle Mortgage, Inc.",
     "location": "San Francisco, California, United States",
-    "startDate": "Jun 2019",
-    "endDate": "Dec 2019",
+    "startDate": "2019",
+    "endDate": "2020",
     "description": "Assisted in developing the Your Mortgage Online app, focusing on frontend components to enable borrowers to manage payments and access account details. Built responsive UI using React and JavaScript, integrating with backend systems for loan servicing.",
     "tags": ["React", "JavaScript", "Node.js", "CSS", "HTML"],
     "logo": "/images/companies/dovenmuehle_logo.jpeg"

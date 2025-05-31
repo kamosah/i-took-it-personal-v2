@@ -15,6 +15,7 @@
     "@emotion/cache": "^11.14.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.14.0",
+    "framer-motion": "^12.15.0",
     "gray-matter": "^4.0.3",
     "hast-util-to-html": "^9.0.5",
     "mdast-util-from-markdown": "^2.0.2",

@@ -5,18 +5,19 @@ import "./globals.css";
 import NavBar from "../components/nav-bar";
 import { Providers } from "../components/providers";
 import { ClientOnly } from "@chakra-ui/react";
+import { Geist, Geist_Mono } from "next/font/google";
 
 // TODO: Uncomment when using server components
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 // TODO: Add metadata for the page when reverted to server component
 // export const metadata: Metadata = {

@@ -205,33 +205,39 @@ export const ExperienceCard = ({
               </motion.div>
 
               <motion.div variants={childVariants}>
-                <VStack align="start" gap={1}>
-                  <Text
-                    fontSize={{ base: "md", md: "lg" }}
-                    fontWeight="semibold"
-                    color="blue.600"
-                    _dark={{ color: "blue.300" }}
-                  >
-                    {company}
-                  </Text>
-                  <Text
-                    fontSize={{ base: "sm", md: "md" }}
-                    color="gray.600"
-                    _dark={{ color: "gray.400" }}
-                  >
-                    📍 {location}
-                  </Text>
-                  <Badge
-                    variant="subtle"
-                    colorScheme="green"
-                    fontSize={{ base: "xs", md: "sm" }}
-                    px={3}
-                    py={1}
-                    borderRadius="full"
-                  >
-                    {startDate} - {endDate}
-                  </Badge>
-                </VStack>
+                <Text
+                  fontSize={{ base: "md", md: "lg" }}
+                  fontWeight="semibold"
+                  color="blue.600"
+                  _dark={{ color: "blue.300" }}
+                >
+                  {company}
+                </Text>
+              </motion.div>
+            </VStack>
+
+            <VStack align="end" gap={1} flexShrink={0}>
+              <motion.div variants={childVariants}>
+                <Badge
+                  variant="subtle"
+                  colorScheme="green"
+                  fontSize={{ base: "xs", md: "sm" }}
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                >
+                  {startDate} - {endDate}
+                </Badge>
+              </motion.div>
+              <motion.div variants={childVariants}>
+                <Text
+                  fontSize={{ base: "sm", md: "md" }}
+                  color="gray.600"
+                  _dark={{ color: "gray.400" }}
+                  textAlign="right"
+                >
+                  📍 {location}
+                </Text>
               </motion.div>
             </VStack>
           </HStack>

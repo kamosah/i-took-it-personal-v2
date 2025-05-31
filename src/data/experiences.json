@@ -6,7 +6,18 @@
     "startDate": "2022",
     "endDate": "2024",
     "description": "Leading frontend development for the Komodo Management Console, a custom Role-Based Access Control and subscription management platform, replacing a third-party tool (Retool) to improve scalability and user experience. Implemented a search feature to enhance usability and contributed to backend development with GraphQL and Temporal-based orchestration. Worked on the Codesets feature in MapLab, streamlining cohort generation with reusable ICD-10 code templates.",
-    "tags": ["React", "TypeScript", "GraphQL", "Material UI", "React Query"],
+    "tags": [
+      "React",
+      "TypeScript",
+      "Python",
+      "GraphQL",
+      "Material UI",
+      "React Query",
+      "Redux",
+      "Design Systems",
+      "HTML",
+      "CSS"
+    ],
     "logo": "/images/companies/komodo_health_logo.jpeg"
   },
   {
@@ -16,7 +27,16 @@
     "startDate": "2021",
     "endDate": "2022",
     "description": "Developed the WhatsApp integration to expand international and bilingual (English/Spanish) user access, increasing platform users by over 30%. Implemented a session-persistent messaging system and feature flagging with LaunchDarkly for stable rollouts. Learned PHP, Doctrine ORM, and Twilio on the job, simulating database migrations to ensure system stability.",
-    "tags": ["PHP", "Doctrine ORM", "Twilio", "LaunchDarkly", "JavaScript"],
+    "tags": [
+      "React",
+      "TypeScript",
+      "Redux",
+      "PHP",
+      "Symfony",
+      "Doctrine ORM",
+      "HTML",
+      "CSS"
+    ],
     "logo": "/images/companies/crisistextline_logo.jpeg"
   },
   {
@@ -26,7 +46,16 @@
     "startDate": "2020",
     "endDate": "2021",
     "description": "Contributed to performance improvements and accessibility enhancements for the Crisis Text Line platform. Focused on building high-quality web applications, integrating REST APIs, and implementing modern UI frameworks to support crisis support services.",
-    "tags": ["JavaScript", "REST APIs", "HTML", "CSS", "React"],
+    "tags": [
+      "React",
+      "TypeScript",
+      "Redux",
+      "PHP",
+      "Symfony",
+      "Doctrine ORM",
+      "HTML",
+      "CSS"
+    ],
     "logo": "/images/companies/crisistextline_logo.jpeg"
   },
   {
@@ -36,7 +65,15 @@
     "startDate": "2019",
     "endDate": "2020",
     "description": "Assisted in developing the Your Mortgage Online app, focusing on frontend components to enable borrowers to manage payments and access account details. Built responsive UI using React and JavaScript, integrating with backend systems for loan servicing.",
-    "tags": ["React", "JavaScript", "Node.js", "CSS", "HTML"],
+    "tags": [
+      "React",
+      "JavaScript",
+      "Material UI",
+      "Redux",
+      "Node.js",
+      "CSS",
+      "HTML"
+    ],
     "logo": "/images/companies/dovenmuehle_logo.jpeg"
   },
   {
@@ -46,7 +83,7 @@
     "startDate": "2019",
     "endDate": "2019",
     "description": "Developed features for a student housing platform, including property search and listing management. Built responsive UI components using JavaScript and early exposure to React, collaborating with a small team to iterate quickly.",
-    "tags": ["JavaScript", "React", "CSS", "HTML", "APIs"],
+    "tags": ["JavaScript", "React", "CSS", "HTML", "APIs", "Ruby on Rails"],
     "logo": "/images/companies/jumpoffcampus_logo.jpeg"
   }
 ]
